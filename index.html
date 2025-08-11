@@ -196,7 +196,19 @@
       <div class="content has-text-justified">
         <br>
         <p>
-          We noted that harmful intents correlate more strongly with notional words (nouns, verbs, adjectives) than function words (prepositions, etc.), so we devised a heuristic annotation approach that exploits part-of-speech (POS) tagging to filter function words and label only notional words as harmful. The steps are as follows: 1) Split the response into sentences and annotate the sentence-level labels using an LLM. 2) Preserve the responses with consistent labels at the response and sentence levels, i.e., keep the harmful responses that contain at least one harmful sentence, and the benign responses that contain all benign sentences. 3) For each harmful sentence, we obtain the POS of each word and label the notional words as harmful words. For each sentence judged as benign, we label all the words in the sentence as benign words. The following figure illustrates the <strong>position distribution of the harmful words in responses</strong>.
+          We noted that <strong>harmful intents correlate more strongly with notional words (nouns, verbs, adjectives) than function words (prepositions, etc.)</strong>, so we devised a heuristic annotation approach that exploits part-of-speech (POS) tagging to filter function words and label only notional words as harmful. The steps are as follows:
+        </p>
+        <p>
+          1) Split the response into sentences and annotate the sentence-level labels using an LLM. 
+        </p>
+        <p>
+          2) Preserve the responses with consistent labels at the response and sentence levels, i.e., keep the harmful responses that contain at least one harmful sentence, and the benign responses that contain all benign sentences.
+        </p>
+        <p>
+          3) For each harmful sentence, we obtain the POS of each word and label the notional words as harmful words. For each sentence judged as benign, we label all the words in the sentence as benign words.
+        </p>
+        <p>
+          The following figure illustrates the <strong>position distribution of the harmful words in responses</strong>.
         </p>
       </div>
       <div class="columns is-centered">
@@ -240,7 +252,10 @@
           \end{equation}
         </p>
         <p>
-          where $L_\text{tok}$ and $L_\text{hol}$ are the loss functions to optimize the predictions of token scorer and holistic scorer, respectively, and $\alpha$ and $\beta$ are the hyperparameters to balance the three components. We use the standard binary cross-entropy loss for both $L_\text{tok}$ and $L_\text{hol}$. For $L_\text{logic}$, we consider that if the response is predicted as harmful by holistic scorer using the last token finally, at least one token should be predicted as harmful by token scorer. If the response is benign, then all the tokens in it should be judged as benign. By leveraging the propositional rule $F=f_\text{hol}(h_n)\Rightarrow g\left(\{f_\text{tok}(h_i)\}_{i=1}^n\right)$, we have:
+          where $L_\text{tok}$ and $L_\text{hol}$ are the loss functions to optimize the predictions of token scorer and holistic scorer, respectively, and $\alpha$ and $\beta$ are the hyperparameters to balance the three components. We use the standard binary cross-entropy loss for both $L_\text{tok}$ and $L_\text{hol}$.
+        </p>
+        <p>
+          For $L_\text{logic}$, we consider that <strong>if the response is predicted as harmful by holistic scorer using the last token finally, at least one token should be predicted as harmful by token scorer. If the response is benign, then all the tokens in it should be judged as benign.</strong> By leveraging the propositional rule $F=f_\text{hol}(h_n)\Rightarrow g\left(\{f_\text{tok}(h_i)\}_{i=1}^n\right)$, we have:
         </p>
         <p style="text-align: center;">
           \begin{equation}
@@ -291,7 +306,7 @@
                 \end{cases}
               \end{equation}
             </p>
-            naive partial detection is a special case of Delay-$k$ partial detection where $k=1$. The larger the $k$, the lower the FAR and the higher the MAR. This allows LLM service providers to adjust the strictness of harmfulness monitoring flexibly according to the requirements of specific scenarios.
+            This allows LLM service providers to adjust the strictness of harmfulness monitoring flexibly according to the requirements of specific scenarios.
         </p>
       </div>
       <br>
@@ -304,7 +319,10 @@
       <div class="content has-text-justified">
         <br>
         <p>
-            For ModernBERT, the full version achieves a good detection performance on both benign and harmful responses, which is expected since it is trained on the entire response and can leverage the full context of the response, but its performance in partial detection (realized by full detection essentially) shows a clear drop due to the inherent gap between the training and inference. For Qwen-2.5, we see a similar trend of performance drop. In contrast, our SCM with Delay-$k$ partial detection shows comparable performance to the full detection on the 0.5B and 1.5B scales and even outperforms its counterpart in the 7B scale. This indicates that SCM can better predict potential harmful responses with only incomplete outputs.
+            For ModernBERT and Qwen-2.5, the full version achieves a good detection performance on both benign and harmful responses, which is expected since it is trained on the entire response and can leverage the full context of the response, but its performance in partial detection (realized by full detection essentially) shows a clear drop due to the inherent gap between the training and inference.
+        </p>
+        <p>
+            In contrast, our SCM with Delay-$k$ partial detection shows comparable performance to the full detection on the 0.5B and 1.5B scales and even outperforms its counterpart in the 7B scale. This indicates that SCM can better predict potential harmful responses with only incomplete outputs.
         </p>
       </div>
       <div class="columns is-centered">
@@ -321,7 +339,7 @@
       <div class="content has-text-justified">
         <br>
         <p>
-            We can see that about 50% of harmful responses are detected within the first 10% of tokens, and over 80% harmful responses are detected within the first 30% of tokens (18% on average). This indicates that our model is capable of detecting harmful content timely, which is crucial for real-time applications that prevent users from being exposed to complete harmful content. It is worth noting that the worst case is that we detect at the end of the response, which degrades our method to the well-performing but less timely full detection.
+            We can see that about 50% of harmful responses are detected within the first 10% of tokens, and <strong>over 80% harmful responses are detected within the first 30% of tokens (18% on average)</strong>. This indicates that our model is capable of detecting harmful content timely, which is crucial for real-time applications that prevent users from being exposed to complete harmful content.
         </p>
       </div>
       <div class="columns is-centered">
