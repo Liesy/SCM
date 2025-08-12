@@ -26,15 +26,13 @@
 
   <title>Streaming Content Monitor</title>
   <link rel="icon" type="image/x-icon" href="static/images/ly-icon.png">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
+  <link rel="stylesheet" href="static/css/google-fonts.css">
 
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
 
   <style>
@@ -44,8 +42,8 @@
     }
   </style>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
@@ -64,12 +62,12 @@
           }
       };
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+  <script src="static/MathJax-3.2.2/es5/tex-mml-chtml.min.js"></script>
     <script>
     function changeContent() {
       const dropdown = document.getElementById("dropdown");
       const selected = dropdown.value;
-      const sections = ["example_1", "example_2", "example_3", "example_4", "example_5", "example_6", "example_7", "example_8", "example_9", "example_10", "example_11", "example_12", "example_13", "example_14"];
+      const sections = ["example_1", "example_2", "example_3"];
 
       sections.forEach((section) => {
         document.getElementById(section).style.display = (section === selected) ? "block" : "none";
